@@ -3,18 +3,22 @@
   Simple Python app to translate words and phrases.   No API key required.
   
   ## Get Started 🚀  
-  There are two versions: terminal, and GUI.
+  There are two versions: terminal, and GUI:
 
-  Terminal:  python3 terminal_translate.python3
+  - Terminal:  python terminal_translate.py
 
-  GUI: python3 main.pyw
-
+  - GUI: python main.pyw
+  
+  GUI version supports text to speech, favorites, as well as app size and position.
       
   ## Imports ✨  
-  ###### Do this first:
-  pip install translate
+  In your virtual environment:
 
-  #### At the top of your script:
-  from translate import Translator
+    pip install -r requirements.txt
+  
+
+  ## Screen shots
+  ![Screenshot](images/ss1.png)
+
   ##
   ## License: MIT
