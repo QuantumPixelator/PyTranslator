@@ -15,13 +15,21 @@ from PySide6.QtWidgets import (
     QSlider,
     QHBoxLayout,
     QListWidget,
-    QMenu
+    QMenu,
+    QMessageBox,
 )
 
 class Widget(QWidget):
+    def show_message(self, title, message):
+            msg_box = QMessageBox(self)
+            msg_box.setWindowTitle(title)
+            msg_box.setText(message)
+            msg_box.setStyleSheet(self.styleSheet())
+            msg_box.exec_()
+            
     def __init__(self):
         super().__init__()
-        
+       
         # Load previous window position and theme if available
         try:
             with open('settings.json', 'r') as f:
@@ -29,7 +37,7 @@ class Widget(QWidget):
             self.resize(int(settings['width']), int(settings['height']))
             self.move(int(settings['x']), int(settings['y']))
         except Exception as e:
-            print(f"Could not load settings: {e}")
+            self.show_message("Error", "Couldn't locate settings.json file! Created settings.json with default values.")
             
         self.speech_rate = 150  # Default speech rate
 
@@ -203,7 +211,7 @@ class Widget(QWidget):
         if french_voice:
             engine.setProperty('voice', french_voice)
         else:
-            print("Couldn't locate a matching language voice, using system default instead.")
+            self.show_message("Error", f"Couldn't locate a matching language voice, using system default voice instead.")
         
         engine.setProperty('rate', self.speech_rate)
         engine.say(self.textbox_2.toPlainText())
