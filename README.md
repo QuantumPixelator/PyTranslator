@@ -13,8 +13,19 @@
   
     python main.pyw
   
-  Supports text to speech, favorites, as well as window size and position.
-      
+  ## Features ✨ 
+ - Text to speech
+ - Favorite phrases
+ - Window size and position saved/used
+ - Easily add more languages
+
+ Default languages:
+ - English (American)
+ - French
+ - Spanish
+ - Italian
+ - German
+ - Russian
 
   
 

@@ -11,12 +11,14 @@ from PySide6.QtWidgets import (
     QTextEdit,
     QPushButton,
     QVBoxLayout,
+    QHBoxLayout,
     QWidget,
     QSlider,
     QHBoxLayout,
     QListWidget,
     QMenu,
     QMessageBox,
+    QComboBox,
 )
 
 class Widget(QWidget):
@@ -53,6 +55,14 @@ class Widget(QWidget):
         self.label_1 = QLabel("Enter a word or phrase:")
         self.label_2 = QLabel("Translation:")
         self.label_3 = QLabel("Speech Rate:")
+        
+        self.combobox = QComboBox()
+        self.combobox.addItem("French")
+        self.combobox.addItem("Spanish")
+        self.combobox.addItem("Italian")
+        self.combobox.addItem("German")
+        self.combobox.addItem("Russian")
+        # Add other languages here
 
         self.button_1 = QPushButton("Translate")
         self.button_2 = QPushButton("Clear")
@@ -83,7 +93,14 @@ class Widget(QWidget):
 
         ############## GUI SETUP ##############
         layout = QVBoxLayout()
-        layout.addWidget(self.label_1)
+        # Create a horizontal layout for label_1 and comboBox
+        label_combo_layout = QHBoxLayout()
+        label_combo_layout.addWidget(self.label_1)
+        label_combo_layout.addStretch(1)  # Pushes the next widget to the far right
+        label_combo_layout.addWidget(self.combobox)
+        
+        # Add the horizontal layout to the main layout
+        layout.addLayout(label_combo_layout)
         layout.addWidget(self.textbox_1)
         layout.addWidget(self.label_2)
         layout.addWidget(self.textbox_2)
@@ -188,7 +205,8 @@ class Widget(QWidget):
                 self.favorites_list.takeItem(self.favorites_list.row(current_item))
 
     def translate(self):
-        translator = Translator(to_lang="French")
+        selected_language = self.combobox.currentText()
+        translator = Translator(to_lang=selected_language)
         get_phrase = self.textbox_1.toPlainText()
         translated_text = translator.translate(get_phrase)
         self.textbox_2.setPlainText(translated_text)
@@ -201,15 +219,16 @@ class Widget(QWidget):
         sys.exit(0)
 
     def speak(self):
+        selected_language = self.combobox.currentText().lower()
         engine = pyttsx3.init()
         voices = engine.getProperty('voices')
-        french_voice = None
+        language_voice = None
         for voice in voices:
-            if 'french' in voice.name.lower():
-                french_voice = voice.id
+            if selected_language in voice.name.lower():
+                language_voice = voice.id
                 break
-        if french_voice:
-            engine.setProperty('voice', french_voice)
+        if language_voice:
+            engine.setProperty('voice', language_voice)
         else:
             self.show_message("Error", f"Couldn't locate a matching language voice, using system default voice instead.")
         
