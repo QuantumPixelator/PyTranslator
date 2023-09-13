@@ -32,14 +32,23 @@ class Widget(QWidget):
     def __init__(self):
         super().__init__()
        
-        # Load previous window position and theme if available
+        # Set the window icon
+        self.setWindowIcon(QIcon("icon.png"))
+        
+        # Set the default window size (in case no settings.json found)
+        self.resize(500, 600)
+        
+        # Load previous window position if available
         try:
             with open('settings.json', 'r') as f:
                 settings = json.load(f)
             self.resize(int(settings['width']), int(settings['height']))
             self.move(int(settings['x']), int(settings['y']))
         except Exception as e:
-            self.show_message("Error", "Couldn't locate settings.json file! Created settings.json with default values.")
+            settings = self.create_default_settings()
+            self.resize(int(settings['width']), int(settings['height']))
+            self.move(int(settings['x']), int(settings['y']))
+
             
         self.speech_rate = 150  # Default speech rate
 
@@ -188,6 +197,18 @@ class Widget(QWidget):
         )
     ############## FUNCTIONS ##############
     
+    def create_default_settings(self):
+        default_settings = {
+            'width': 500,
+            'height': 600,
+            'x': 100,
+            'y': 100
+        }
+        with open('settings.json', 'w') as f:
+            json.dump(default_settings, f)
+        return default_settings
+
+    
     # Save the window position and size on resize or move
     def resizeEvent(self, event):
         self.save_window_settings()
@@ -198,25 +219,27 @@ class Widget(QWidget):
         super().moveEvent(event)
 
     def save_window_settings(self):
-        # Get the geometry data as a QRect object
-        geometry = self.geometry()
+        try:
+            # Get the geometry data as a QRect object
+            geometry = self.geometry()
 
-        # Save the position in a dictionary
-        information = {
-            'width': geometry.width(),
-            'height': geometry.height(),
-            'x': geometry.x(),
-            'y': geometry.y(),
-        }
+            # Save the position in a dictionary
+            information = {
+                'width': geometry.width(),
+                'height': geometry.height(),
+                'x': geometry.x(),
+                'y': geometry.y(),
+            }
 
-        # Determine the path to save the JSON file
-        current_folder_path = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(current_folder_path, 'settings.json')
+            # Determine the path to save the JSON file
+            current_folder_path = os.path.dirname(os.path.abspath(__file__))
+            file_path = os.path.join(current_folder_path, 'settings.json')
 
-        # Write the position to the file
-        with open(file_path, 'w') as file:
-            json.dump(information, file)
-
+            # Write the position to the file
+            with open(file_path, 'w') as file:
+                json.dump(information, file)
+        except Exception as e:
+            self.show_message("Error", f"Error saving settings:\n\n{e}")
 
     def load_favorites(self):
         try:
@@ -281,7 +304,7 @@ class Widget(QWidget):
         if language_voice:
             engine.setProperty('voice', language_voice)
         else:
-            self.show_message("Error", f"Couldn't locate a matching language voice ({selected_language}).\nUsing system default voice instead.")
+            self.show_message("Error", f"Couldn't locate a matching language voice ({selected_language}) installed on this system.\nUsing system default voice instead.")
         
         engine.setProperty('rate', self.speech_rate)
         engine.say(self.textbox_2.toPlainText())
@@ -291,6 +314,9 @@ class Widget(QWidget):
         self.speech_rate = value
 
     def closeEvent(self, event):
+        # Ensure the current settings are saved
+        self.save_window_settings()
+        
         # Continue with the normal close event
         event.accept()
 
@@ -301,8 +327,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     widget = Widget()
-    widget.setWindowTitle("Simple Translator App")
-    widget.setWindowIcon(QIcon("icon.png"))
+    widget.setWindowTitle("PyTranslator")
     widget.show()
 
     sys.exit(app.exec())
