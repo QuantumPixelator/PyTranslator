@@ -1,7 +1,7 @@
 
   # Simple Translator App 📝  
   Simple Python app to translate words and phrases.
-  Uses Translate from https://www.pypi.org/translate
+  Uses Translate from https://pypi.org/project/translate/
     
 
   ## Imports ✨  
