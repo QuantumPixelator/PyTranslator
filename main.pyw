@@ -182,6 +182,36 @@ class Widget(QWidget):
             """
         )
     ############## FUNCTIONS ##############
+    
+    # Save the window position and size on resize or move
+    def resizeEvent(self, event):
+        self.save_window_settings()
+        super().resizeEvent(event)
+
+    def moveEvent(self, event):
+        self.save_window_settings()
+        super().moveEvent(event)
+
+    def save_window_settings(self):
+        # Get the geometry data as a QRect object
+        geometry = self.geometry()
+
+        # Save the position in a dictionary
+        information = {
+            'width': geometry.width(),
+            'height': geometry.height(),
+            'x': geometry.x(),
+            'y': geometry.y(),
+        }
+
+        # Determine the path to save the JSON file
+        current_folder_path = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(current_folder_path, 'settings.json')
+
+        # Write the position to the file
+        with open(file_path, 'w') as file:
+            json.dump(information, file)
+
 
     def load_favorites(self):
         try:
@@ -256,25 +286,6 @@ class Widget(QWidget):
         self.speech_rate = value
 
     def closeEvent(self, event):
-        # Get the geometry data as a QRect object
-        geometry = self.geometry()  # This returns the QRect object
-
-        # Save the position in a dictionary
-        information = {
-            'width': geometry.width(),
-            'height': geometry.height(),
-            'x': geometry.x(),
-            'y': geometry.y(),
-        }
-
-        # Determine the path to save the JSON file
-        current_folder_path = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(current_folder_path, 'settings.json')
-
-        # Write the position to the file
-        with open(file_path, 'w') as file:
-            json.dump(information, file)
-
         # Continue with the normal close event
         event.accept()
 
