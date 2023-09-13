@@ -86,7 +86,15 @@ class Widget(QWidget):
         self.slider.setTickPosition(QSlider.TicksBelow)
 
         self.favorites_list = QListWidget()
-        self.favorites_list.alternatingRowColors()
+        self.favorites_list.setAlternatingRowColors(True)
+        self.favorites_list.setStyleSheet("""
+            QListView {
+                alternate-background-color: #DADADA;
+                background-color: #f0f0f0;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                }
+            """)
         self.favorites_list.addItems(self.favorites.keys())
         self.favorites_list.itemClicked.connect(self.load_favorite)
         self.favorites_list.setContextMenuPolicy(Qt.CustomContextMenu)
@@ -173,16 +181,6 @@ class Widget(QWidget):
             }
             """
         )
-        # QListView standard CSS doesn't support a-b color, so do it this way
-        self.favorites_list.setStyleSheet("""
-            QListView {
-                alternate-background-color: #3498db;
-                background-color: #f0f0f0;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                }
-            """)
-
     ############## FUNCTIONS ##############
 
     def load_favorites(self):
