@@ -63,7 +63,10 @@ class Widget(QWidget):
         self.combobox.addItem("Italian")
         self.combobox.addItem("German")
         self.combobox.addItem("Russian")
-        self.combobox.addItem("English")
+        self.combobox.addItem("Portuguese")
+        self.combobox.addItem("Arabic")
+        self.combobox.addItem("en-GB")
+        self.combobox.addItem("en-US")
         # Add other languages here###########
 
         self.button_1 = QPushButton("Translate")
@@ -169,9 +172,9 @@ class Widget(QWidget):
         )
         # QListView standard CSS doesn't support a-b color, so do it this way
         self.favorites_list.setStyleSheet("""
-                QListView {
-                    alternate-background-color: #3498db;
-                    background-color: #f0f0f0;
+            QListView {
+                alternate-background-color: #3498db;
+                background-color: #f0f0f0;
                 border: 1px solid #ccc;
                 border-radius: 4px;
                 }
