@@ -281,7 +281,7 @@ class Widget(QWidget):
         if language_voice:
             engine.setProperty('voice', language_voice)
         else:
-            self.show_message("Error", f"Couldn't locate a matching language voice ({selected_language}).\nUsing system default voice instead.")
+            self.show_message("Error", f"Couldn't locate a matching language voice ({selected_language}) installed on this system.\nUsing system default voice instead.")
         
         engine.setProperty('rate', self.speech_rate)
         engine.say(self.textbox_2.toPlainText())
