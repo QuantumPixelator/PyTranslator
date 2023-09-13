@@ -179,6 +179,11 @@ class Widget(QWidget):
                 margin: -5px 0;
                 border-radius: 9px;
             }
+            QComboBox {
+                background-color: #ffffff;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
             """
         )
     ############## FUNCTIONS ##############
