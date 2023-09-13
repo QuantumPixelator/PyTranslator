@@ -1,7 +1,8 @@
 
   # Simple Translator App 📝  
-  Simple Python app to translate words and phrases.   No API key required.
-  
+  Simple Python app to translate words and phrases.
+  Uses Translate from https://www.pypi.org/translate
+    
 
   ## Imports ✨  
   In your virtual environment:
@@ -18,14 +19,20 @@
  - Favorite phrases
  - Window size and position saved/used
  - Easily add more languages
+ - Almost all languages available
 
  Default languages:
- - English (American)
  - French
  - Spanish
  - Italian
  - German
  - Russian
+ - Portuguese
+ - Arabic
+ - Japanese
+ - English - GB
+ - English - US
+
 
   
 

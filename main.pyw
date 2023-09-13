@@ -57,6 +57,7 @@ class Widget(QWidget):
         self.label_3 = QLabel("Speech Rate:")
         
         #####################################
+        ############# LANGUAGES #############
         self.combobox = QComboBox()
         self.combobox.addItem("French")
         self.combobox.addItem("Spanish")
@@ -65,9 +66,11 @@ class Widget(QWidget):
         self.combobox.addItem("Russian")
         self.combobox.addItem("Portuguese")
         self.combobox.addItem("Arabic")
+        self.combobox.addItem("Japanese")
         self.combobox.addItem("en-GB")
         self.combobox.addItem("en-US")
         # Add other languages here###########
+        #####################################
 
         self.button_1 = QPushButton("Translate")
         self.button_2 = QPushButton("Clear")
