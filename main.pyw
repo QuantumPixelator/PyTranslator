@@ -56,13 +56,15 @@ class Widget(QWidget):
         self.label_2 = QLabel("Translation:")
         self.label_3 = QLabel("Speech Rate:")
         
+        #####################################
         self.combobox = QComboBox()
         self.combobox.addItem("French")
         self.combobox.addItem("Spanish")
         self.combobox.addItem("Italian")
         self.combobox.addItem("German")
         self.combobox.addItem("Russian")
-        # Add other languages here
+        self.combobox.addItem("English")
+        # Add other languages here###########
 
         self.button_1 = QPushButton("Translate")
         self.button_2 = QPushButton("Clear")
@@ -78,6 +80,7 @@ class Widget(QWidget):
         self.slider.setTickPosition(QSlider.TicksBelow)
 
         self.favorites_list = QListWidget()
+        self.favorites_list.alternatingRowColors()
         self.favorites_list.addItems(self.favorites.keys())
         self.favorites_list.itemClicked.connect(self.load_favorite)
         self.favorites_list.setContextMenuPolicy(Qt.CustomContextMenu)
@@ -123,7 +126,7 @@ class Widget(QWidget):
 
         self.setLayout(layout)
 
-        ############## STYLESHEET ##############
+        ############## STYLESHEET ##############      
         self.setStyleSheet(
             """
             QWidget {
@@ -164,6 +167,15 @@ class Widget(QWidget):
             }
             """
         )
+        # QListView standard CSS doesn't support a-b color, so do it this way
+        self.favorites_list.setStyleSheet("""
+                QListView {
+                    alternate-background-color: #3498db;
+                    background-color: #f0f0f0;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                }
+            """)
 
     ############## FUNCTIONS ##############
 
@@ -230,7 +242,7 @@ class Widget(QWidget):
         if language_voice:
             engine.setProperty('voice', language_voice)
         else:
-            self.show_message("Error", f"Couldn't locate a matching language voice, using system default voice instead.")
+            self.show_message("Error", f"Couldn't locate a matching language voice ({selected_language}).\nUsing system default voice instead.")
         
         engine.setProperty('rate', self.speech_rate)
         engine.say(self.textbox_2.toPlainText())
