@@ -150,7 +150,7 @@ class Widget(QWidget):
                 font-size: 14px;
             }
             QTextEdit {
-                background-color: #f0f0f0;
+                background-color: #ffffff;
                 border: 1px solid #ccc;
                 border-radius: 4px;
             }
