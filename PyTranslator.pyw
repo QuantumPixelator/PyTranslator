@@ -1,7 +1,7 @@
 import sys
 import json
 import os
-import pyttsx3
+import pyttsx4
 from translate import Translator
 from PySide6.QtCore import Qt, QRect
 from PySide6.QtGui import QIcon, QTextOption
@@ -294,7 +294,7 @@ class Widget(QWidget):
 
     def speak(self):
         selected_language = self.combobox.currentText().lower()
-        engine = pyttsx3.init()
+        engine = pyttsx4.init()
         voices = engine.getProperty('voices')
         language_voice = None
         for voice in voices:
