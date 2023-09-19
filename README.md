@@ -1,8 +1,10 @@
 
   # Simple Translator App 📝  
   Simple Python app to translate words and phrases.
-  Uses Translate from https://pypi.org/project/translate/
-  and pyttsx4 from: https://pypi.org/project/pyttsx4/
+  
+  Libraries:
+  - Translate from https://pypi.org/project/translate/
+  - pyttsx4 from: https://pypi.org/project/pyttsx4/
       
 
   ## Imports ✨  
