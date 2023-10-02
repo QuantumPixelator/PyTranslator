@@ -85,6 +85,7 @@ class Widget(QWidget):
         self.button_2 = QPushButton("Clear")
         self.button_3 = QPushButton("Exit App")
         self.button_4 = QPushButton("Speak")
+        self.button_4.setObjectName("speakButton")
         self.button_5 = QPushButton("Add to Favorites")
 
         self.slider = QSlider(Qt.Horizontal)
@@ -176,6 +177,12 @@ class Widget(QWidget):
             }
             QPushButton:hover {
                 background-color: #2980b9;
+            }
+            QPushButton#speakButton {
+                background-color: #DB3498;
+            }
+            QPushButton#speakButton:hover {
+                background-color: #DA61AA;
             }
             QSlider::groove:horizontal {
                 height: 8px;

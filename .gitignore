@@ -5,3 +5,5 @@ main.spec
 dist/
 build/
 PyTranslator.spec
+favorites.json
+settings.json
