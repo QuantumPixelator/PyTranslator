@@ -27,7 +27,7 @@ class Widget(QWidget):
             msg_box.setWindowTitle(title)
             msg_box.setText(message)
             msg_box.setStyleSheet(self.styleSheet())
-            msg_box.exec_()
+            msg_box.exec()
             
     def __init__(self):
         super().__init__()
@@ -276,7 +276,7 @@ class Widget(QWidget):
     def show_context_menu(self, position):
         context_menu = QMenu()
         delete_action = context_menu.addAction("Delete")
-        action = context_menu.exec_(self.favorites_list.mapToGlobal(position))
+        action = context_menu.exec(self.favorites_list.mapToGlobal(position))
         if action == delete_action:
             current_item = self.favorites_list.currentItem()
             if current_item:
