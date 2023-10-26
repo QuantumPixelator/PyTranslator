@@ -3,7 +3,7 @@ import json
 import os
 import pyttsx4
 from translate import Translator
-from PySide6.QtCore import Qt, QRect
+from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon, QTextOption
 from PySide6.QtWidgets import (
     QApplication,
